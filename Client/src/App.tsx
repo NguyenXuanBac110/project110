@@ -3,6 +3,11 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminAdd from "./pages/Admin/Product/Add";
 import AdminEdit from "./pages/Admin/Product/Edit";
 import AdminList from "./pages/Admin/Product/List";
+import ClientLayout from "./layouts/ClientLayout";
+import Homepage from "./pages/Client/HomePage";
+import ProductDetail from "./pages/Client/ProductDetail";
+import Notfound from "./pages/Client/Notfound";
+import Register from "./pages/Client/Register";
 
 const routeConfig = [
   {
@@ -20,6 +25,28 @@ const routeConfig = [
       {
         path: "product/edit/:id",
         element: <AdminEdit />
+      },
+    ]
+  },
+  {
+    path: "/",
+    element: <ClientLayout />,
+    children: [
+      {
+        path: "",
+        element: <Homepage />
+      },
+      {
+        path: "/not-found",
+        element: <Notfound />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductDetail />
+      },
+      {
+        path: "register",
+        element: <Register />
       },
     ]
   },
