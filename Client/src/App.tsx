@@ -8,6 +8,7 @@ import Homepage from "./pages/Client/HomePage";
 import ProductDetail from "./pages/Client/ProductDetail";
 import Notfound from "./pages/Client/Notfound";
 import Register from "./pages/Client/Register";
+import { Login } from "@mui/icons-material";
 
 const routeConfig = [
   {
@@ -47,6 +48,10 @@ const routeConfig = [
       {
         path: "register",
         element: <Register />
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ]
   },
