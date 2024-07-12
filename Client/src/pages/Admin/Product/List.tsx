@@ -1,70 +1,92 @@
 import { Button, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { useState } from "react";
-import { Link, useRoutes } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ComfirmDialog from "src/components/Comfirmfialog";
-
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import { Product } from "src/types/product";
 
 function AdminList() {
-  const [cofirm, setcomfirm] = useState(false)
-  const onHandleComfirm = () => {
-    setcomfirm(true)
+  const [confirm, setConfirm] = useState(false)
+  const [products,setProducts] = useState<Product[]>([]);
+
+  const getAllProduct = async () => {
+     try {
+       const { data } = await axios.get("http://localhost:3000/products");
+       setProducts(data);
+     } catch (error) {
+       console.log(error)
+     }
+  };
+
+  useEffect(() => {
+    getAllProduct();
+  }, []);
+
+  const handleConfirm = () =>{
+      setConfirm(true);
   }
-  const onHandleDelete = () => {
-      console.log("delete");
+  const handleDelete = () =>{
+      console.log('delete')
   }
+
+  // function createData(
+  //   name: string,
+  //   calories: number,
+  //   fat: number,
+  //   carbs: number,
+  //   protein: number,
+  // ) {
+  //   return { name, calories, fat, carbs, protein };
+  // }
+  
+  // const rows = [
+  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  //   createData('Eclair', 262, 16.0, 24, 6.0),
+  //   createData('Cupcake', 305, 3.7, 67, 4.3),
+  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
+  // ];
+
   return <>
-  <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Title</TableCell>
+            <TableCell align="right">Price</TableCell>
+            <TableCell align="right">Description</TableCell>
+            <TableCell align="right">Image</TableCell>
+            <TableCell align="right">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {products.map((product, index) => (
+            <TableRow
+              key={index}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
               <TableCell component="th" scope="row">
-                {row.name}
+                {product.title}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{product.price}</TableCell>
+              <TableCell align="right">{product.description}</TableCell>
+              <TableCell align="right">{product.image}</TableCell>
+              <TableCell align="right">{product.category.name}</TableCell>
               <TableCell align="right">
-                <Stack direction={'row'} gap={3} justifyContent={'center'}>
-                  <Link to={''}>Cập nhật</Link>
-                  <Button variant="contained" sx={{bgcolor: "red"}} onClick={onHandleComfirm}>Xoá</Button>
-                </Stack>
+                 <Stack direction={'row'} gap={3} justifyContent={'center'}>
+                     <Link to={""}>Edit</Link>
+                     <Button  sx={{ bgcolor: 'red'}} onClick={handleConfirm}>Delete</Button>
+                 </Stack>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <ComfirmDialog confirm={cofirm} onComfirm={setcomfirm} onDelete={onHandleDelete}/>
-    </TableContainer></>;
+      <ComfirmDialog confirm={confirm} onComfirm={setConfirm} onDelete={handleDelete}/>
+    </TableContainer>
+  </>
 }
 
 export default AdminList;
+
+///Đã code r nhé
