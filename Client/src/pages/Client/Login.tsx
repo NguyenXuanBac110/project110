@@ -3,56 +3,45 @@ import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-type RegisterFormParams = {
+type LoginFormParams = {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
-const Register = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-  } = useForm<RegisterFormParams>();
+  } = useForm<LoginFormParams>();
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<RegisterFormParams> = async (data: any) => {
+  const onSubmit: SubmitHandler<LoginFormParams> = async (data) => {
     try {
-      await axios.post("http://localhost:3000/register", {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-      });
-      alert("Register successfully");
-      navigate("/login");  // Navigate to the login page
+      const res = await axios.post("http://localhost:3000/login", data);
+      const { accessToken, user } = res.data;
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("userId", user.id);
+      alert('Đăng nhập thành công');
+      if (user.id === 1) {
+        navigate("/admin/product/list");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
-      alert("Email hoặc username đã tồn tại");
       console.error(error);
     }
   };
 
-  // Watch password for confirming it matches confirmPassword
-  const password = watch("password");
-
   return (
     <Container>
       <Typography variant="h2" textAlign={"center"} mb={2}>
-        Register
+        Login
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={2}>
-          <TextField
-            label="Username"
-            {...register("username", {
-              required: "Username is required",
-            })}
-            error={!!errors?.username?.message}
-            helperText={errors?.username?.message}
-          />
           <TextField
             label="Email"
             {...register("email", {
@@ -78,17 +67,6 @@ const Register = () => {
             error={!!errors?.password?.message}
             helperText={errors?.password?.message}
           />
-          <TextField
-            label="Confirm Password"
-            {...register("confirmPassword", {
-              required: "Confirm Password is required",
-              validate: value =>
-                value === password || "Passwords do not match",
-            })}
-            type="password"
-            error={!!errors?.confirmPassword?.message}
-            helperText={errors?.confirmPassword?.message}
-          />
           <Button type="submit" variant="contained">
             Submit
           </Button>
@@ -98,4 +76,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
