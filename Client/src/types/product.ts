@@ -1,12 +1,15 @@
 export type Product = {
-    id: string;
+    _id: string;
     title: string;
     price: number;
     image: string;
     description: string;
-    category: string;
-    rating: {
-      rate: number;
-      count: number;
-    };
+    category: Category;
+    isShow: boolean;
   };
+
+export type Category = {
+  _id: string;
+  name: string;
+  description: string;
+}
