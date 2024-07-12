@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,8 +65,12 @@ const Header: React.FC = () => {
         </Typography>
         <Button color="inherit">Home</Button>
         <Button color="inherit">About</Button>
-        <Button color="inherit">Đăng ký</Button>
-        <Button color="inherit">Đăng nhập</Button>
+        <Button color="inherit" component={Link} to="/register">
+          Đăng ký
+        </Button>
+        <Button color="inherit" component={Link} to="/login">
+          Đăng nhập
+        </Button>
         <Search>
           <SearchIconWrapper>
             <SearchIcon />

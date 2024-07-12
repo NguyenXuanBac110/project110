@@ -28,21 +28,15 @@
   "users": [
     {
       "email": "cactovb@gmail.com",
-      "password": "$2a$10$KSeM8isnWryQZ6HBe8F8oOb2GSJDXstmrVNyanxRudqKzDBEQg97S",
-      "username": "bac",
+      "password": "$2a$10$ODi2XQfmAOG3OhSORCtbgOxJhxWaQEu6NCVZ.XuDdxWiVOoWvJRh2",
+      "username": "bac123",
       "id": 1
     },
     {
-      "email": "bac@gmail.com",
-      "password": "$2a$10$1VZAD3tCKZbTFPDAkPJAS.NsVPp.hQlLZFjeBKYHfJwtNqxb4gCdC",
-      "username": "namebac",
+      "email": "bac2@gmail.com",
+      "password": "$2a$10$Mw/hrXM/CFiZ3VgepYAENO/guutteN5AyfDbKDYvn4Fyrzg0zxQya",
+      "username": "bac2",
       "id": 2
-    },
-    {
-      "email": "bac11@gmail.com",
-      "password": "$2a$10$2E4KYagzUzN9rsGWmjnTf./bnCKIH6hi2JhkJfaYfyOH15lzh2o3C",
-      "username": "bac1",
-      "id": 3
     }
   ]
 }

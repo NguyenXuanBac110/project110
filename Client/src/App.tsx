@@ -8,7 +8,8 @@ import Homepage from "./pages/Client/HomePage";
 import ProductDetail from "./pages/Client/ProductDetail";
 import Notfound from "./pages/Client/Notfound";
 import Register from "./pages/Client/Register";
-import { Login } from "@mui/icons-material";
+import Login from "./pages/Client/Login";
+
 
 const routeConfig = [
   {
@@ -50,7 +51,7 @@ const routeConfig = [
         element: <Register />
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
     ]

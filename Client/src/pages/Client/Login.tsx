@@ -21,9 +21,18 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginFormParams> = async (data) => {
     try {
       const res = await axios.post("http://localhost:3000/login", data);
-      localStorage.setItem("token", res.data.accessToken);
-      navigate("/admin");
-    } catch (error) {}
+      const { accessToken, user } = res.data;
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("userId", user.id);
+      alert('Đăng nhập thành công');
+      if (user.id === 1) {
+        navigate("/admin/product/list");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -39,7 +48,7 @@ const Login = () => {
               required: "Email is required",
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "invalid email address",
+                message: "Invalid email address",
               },
             })}
             error={!!errors?.email?.message}
@@ -51,7 +60,7 @@ const Login = () => {
               required: "Password is required",
               minLength: {
                 value: 6,
-                message: "Password is min length 6 characters",
+                message: "Password must be at least 6 characters",
               },
             })}
             type="password"
