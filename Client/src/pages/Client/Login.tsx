@@ -2,6 +2,7 @@ import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "src/axiosConfig";
 
 type LoginFormParams = {
   username: string;
@@ -20,7 +21,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormParams> = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/login", data);
+      const res = await axiosInstance.post("/login", data);
       const { accessToken, user } = res.data;
       localStorage.setItem("token", accessToken);
       localStorage.setItem("userId", user.id);
@@ -31,6 +32,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
+      alert('email hoặc mk không hợp lệ')
       console.error(error);
     }
   };

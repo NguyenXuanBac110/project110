@@ -37,6 +37,12 @@
       "password": "$2a$10$Mw/hrXM/CFiZ3VgepYAENO/guutteN5AyfDbKDYvn4Fyrzg0zxQya",
       "username": "bac2",
       "id": 2
+    },
+    {
+      "email": "bac3@gmail.com",
+      "password": "$2a$10$uoRwXYM56Q57l7fm8S6YiObIqX4TgIBucMg3zXKld5BsjtJVqSuFW",
+      "username": "bac3",
+      "id": 3
     }
   ]
 }
