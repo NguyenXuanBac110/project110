@@ -12,6 +12,8 @@ import {
   TextField,
   Grid,
   Alert,
+  AppBar,
+  Toolbar,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -76,6 +78,20 @@ function ProductDetail() {
   return (
     <>
       <Loading isShow={loading} />
+      <AppBar position="static" style={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black' }}>
+            <img src="https://censor.vn/wp-content/uploads/2022/03/logo-cac-hang-giay-noi-tieng-1.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
+          </Typography>
+          <Box>
+            <Button color="inherit" style={{ color: 'black' }}>Home</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Bags</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Sneakers</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Belt</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Contact</Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
       <Container sx={{ marginTop: "20px" }}>
         {error && <Alert severity="error">{error}</Alert>}
         {product && (
@@ -85,7 +101,7 @@ function ProductDetail() {
                 component="img"
                 src={product.image}
                 alt={product.title}
-                sx={{ width: "100%", objectFit: "contain" }}
+                sx={{ width: "100%", height: "300px", objectFit: "contain" }} // Chỉnh sửa objectFit thành "contain"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -103,7 +119,7 @@ function ProductDetail() {
                   </Typography>
                 </Stack>
                 <Typography variant="body2" color="text.secondary">
-                  Category: {product.category}
+                  Category: {product.category.name}
                 </Typography>
                 <Typography>{product.description}</Typography>
                 <Stack direction="row" alignItems="center" gap={1}>

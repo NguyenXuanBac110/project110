@@ -1,21 +1,22 @@
-import { Stack } from '@mui/material'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from 'src/components/Footer'
-import Header from 'src/components/Header'
-
-import SlideBar from 'src/components/SlideBar'
+import React from 'react';
+import { Stack } from '@mui/material';
+import { Outlet, useLocation } from 'react-router-dom';
+import Footer from 'src/components/Footer';
+import Header from 'src/components/Header';
 
 const ClientLayout = () => {
-    return (
-        <>        
-            <Stack>
-                <Header />
-                <Outlet />
-                <Footer/>
-            </Stack>
-        </>
-    )
-}
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
-export default ClientLayout
+  return (
+    <>
+      {isHomePage && <Header />}
+      <Stack>
+        <Outlet />
+        {/* <Footer /> */}
+      </Stack>
+    </>
+  );
+};
+
+export default ClientLayout;

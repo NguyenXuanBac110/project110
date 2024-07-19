@@ -1,15 +1,17 @@
+// src/types/product.ts
 export type Product = {
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-    description: string;
-    category: Category;
-    isShow: boolean;
-  };
+  rating: any;
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  description: string;
+  category: Category;
+  isShow: boolean;
+};
 
 export type Category = {
-  _id: string;
+  id: number;
   name: string;
   description: string;
-}
+};

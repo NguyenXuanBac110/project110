@@ -1,11 +1,10 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { Button, Container, Stack, TextField, Typography, Link, AppBar, Toolbar, Box } from "@mui/material";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "src/axiosConfig";
 
 type LoginFormParams = {
-  username: string;
   email: string;
   password: string;
 };
@@ -32,13 +31,29 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
-      alert('email hoặc mk không hợp lệ')
+      alert('Email hoặc mật khẩu không hợp lệ');
       console.error(error);
     }
   };
 
   return (
+    <>
+    <AppBar position="static" style={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black' }}>
+            <img src="https://censor.vn/wp-content/uploads/2022/03/logo-cac-hang-giay-noi-tieng-1.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
+          </Typography>
+          <Box>
+            <Button color="inherit" style={{ color: 'black' }}>Home</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Bags</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Sneakers</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Belt</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Contact</Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
     <Container>
+      
       <Typography variant="h2" textAlign={"center"} mb={2}>
         Login
       </Typography>
@@ -72,9 +87,15 @@ const Login = () => {
           <Button type="submit" variant="contained">
             Submit
           </Button>
+          <Typography variant="body2">
+            Don't have an account?{" "}
+            <Link href="/register" color="inherit">
+              Register here
+            </Link>
+          </Typography>
         </Stack>
       </form>
-    </Container>
+    </Container></>
   );
 };
 

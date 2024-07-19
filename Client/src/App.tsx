@@ -1,60 +1,65 @@
-import { useRoutes } from "react-router-dom";
-import AdminLayout from "./layouts/AdminLayout";
-import AdminAdd from "./pages/Admin/Product/Add";
-import AdminEdit from "./pages/Admin/Product/Edit";
-import AdminList from "./pages/Admin/Product/List";
-import ClientLayout from "./layouts/ClientLayout";
-import Homepage from "./pages/Client/HomePage";
-import ProductDetail from "./pages/Client/ProductDetail";
-import Notfound from "./pages/Client/Notfound";
-import Register from "./pages/Client/Register";
-import Login from "./pages/Client/Login";
-
+import React from 'react';
+import { useRoutes } from 'react-router-dom';
+import AdminLayout from './layouts/AdminLayout';
+import AdminAdd from './pages/Admin/Product/Add';
+import AdminEdit from './pages/Admin/Product/Edit';
+import AdminList from './pages/Admin/Product/List';
+import ClientLayout from './layouts/ClientLayout';
+import Homepage from './pages/Client/HomePage';
+import ProductDetail from './pages/Client/ProductDetail';
+import Notfound from './pages/Client/Notfound';
+import Register from './pages/Client/Register';
+import Login from './pages/Client/Login';
+import AdminAddCategory from './pages/Admin/Product/AdminAddCategory';
 
 const routeConfig = [
   {
-    path: "/admin",
+    path: '/admin',
     element: <AdminLayout />,
     children: [
       {
-        path: "product/list",
-        element: <AdminList />
+        path: 'product/list',
+        element: <AdminList />,
       },
       {
-        path: "product/add",
-        element: <AdminAdd />
+        path: 'product/add',
+        element: <AdminAdd />,
       },
       {
-        path: "product/edit/:id",
-        element: <AdminEdit />
+        path: 'product/addCategory',
+        element: <AdminAddCategory />,
       },
-    ]
+      {
+        path: 'product/edit/:id',
+        element: <AdminEdit />,
+      },
+    ],
   },
   {
-    path: "/",
+    path: '/',
     element: <ClientLayout />,
     children: [
       {
-        path: "",
-        element: <Homepage />
+        path: '',
+        element: <Homepage />,
       },
       {
-        path: "/not-found",
+        path: '/not-found',
         element: <Notfound />,
       },
       {
-        path: "products/:id",
-        element: <ProductDetail />
+        path: 'products/:id',
+        element: <ProductDetail />,
       },
       {
-        path: "register",
-        element: <Register />
+        path: 'register',
+        element: <Register />,
       },
       {
-        path: "login",
+        path: 'login',
         element: <Login />,
       },
-    ]
+    ],
   },
 ];
 

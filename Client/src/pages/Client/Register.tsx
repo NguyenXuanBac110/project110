@@ -1,4 +1,4 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, Stack, TextField, Toolbar, Typography } from "@mui/material";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +39,21 @@ const Register = () => {
   const password = watch("password");
 
   return (
+    <>
+    <AppBar position="static" style={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black' }}>
+            <img src="https://censor.vn/wp-content/uploads/2022/03/logo-cac-hang-giay-noi-tieng-1.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
+          </Typography>
+          <Box>
+            <Button color="inherit" style={{ color: 'black' }}>Home</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Bags</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Sneakers</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Belt</Button>
+            <Button color="inherit" style={{ color: 'black' }}>Contact</Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
     <Container>
       <Typography variant="h2" textAlign={"center"} mb={2}>
         Register
@@ -94,7 +109,7 @@ const Register = () => {
           </Button>
         </Stack>
       </form>
-    </Container>
+    </Container></>
   );
 };
 
