@@ -1,27 +1,61 @@
 {
   "products": [
     {
-      "title": "1",
-      "price": 200,
-      "image": "https://i.pinimg.com/236x/5b/93/81/5b938123c9ad5393e4ec20bc29721e25.jpg",
-      "description": "shoes 90%",
+      "title": "Shoes K",
+      "price": 300,
+      "image": "https://i.pinimg.com/564x/e6/5e/65/e65e6528d39b5cadb2f8686bacfd4430.jpg",
+      "description": "his listing is for a BRAND NEW 100% AUTHENTIC pair of Nike Air Jordan 1 \"Shadow 2.0\" Size 6Y 575441-035. Comes with FREE SHIPPING AND SHIPS FAST!",
       "category": {
-        "name": "2HAND",
-        "description": "sản phẩm cũ 90%",
-        "id": 1
+        "name": "New",
+        "description": "sản phẩm mới",
+        "id": 2
       },
       "isShow": true,
       "rating": {
         "rate": 0,
         "count": 0
       },
-      "id": 3
+      "id": 7
     },
     {
-      "title": "sản phẩm 2",
+      "title": "Jordan 1",
       "price": 200,
-      "image": "https://i.pinimg.com/236x/69/a9/cc/69a9cc720cddb7dbcb758cf2ecc651b8.jpg",
-      "description": "mô tả",
+      "image": "https://i.pinimg.com/564x/41/a9/90/41a9909ecedf61d1fd39795d6a99cae1.jpg",
+      "description": "The Air Jordan 1 Retro High OG GS 'Chicago' was a May 2015 Grade School re-release of the iconic OG colorway. The Chicago-Bulls inspired design combines a white, black, and Varsity Red leather top with a white midsole and Varsity Red outsole. The sneaker also features OG Nike Air branding on the tongue and the Wings logo on the ankle collar.",
+      "category": {
+        "name": "New",
+        "description": "sản phẩm mới",
+        "id": 2
+      },
+      "isShow": true,
+      "rating": {
+        "rate": 0,
+        "count": 0
+      },
+      "id": 9
+    },
+    {
+      "title": "Jordan Gray",
+      "price": 200,
+      "image": "https://i.pinimg.com/564x/17/ba/be/17babe7186577f64a57376c1398a11fc.jpg",
+      "description": "Air Jordan 1 Mid Melo SE 'Equality' 852542-010 (AJ1/SNKR)",
+      "category": {
+        "name": "Sản phẩm chính hãng",
+        "description": "Sản phẩm Chính Hãng Việt Nam",
+        "id": 4
+      },
+      "isShow": true,
+      "rating": {
+        "rate": 0,
+        "count": 0
+      },
+      "id": 11
+    },
+    {
+      "title": "Air Jordan 1",
+      "price": 100,
+      "image": "https://i.pinimg.com/564x/c1/3b/79/c13b79cc91dc3f8c040dd0656054e247.jpg",
+      "description": "Jordan 1 Mid Fearless (Edison Chen)",
       "category": {
         "name": "2HAND",
         "description": "sản phẩm cũ 90%",
@@ -32,7 +66,24 @@
         "rate": 0,
         "count": 0
       },
-      "id": 4
+      "id": 12
+    },
+    {
+      "title": "Jordan 1 Retro ",
+      "price": 300,
+      "image": "https://i.pinimg.com/564x/af/ef/5f/afef5f9c4e7a6df7ff5ae12dd89748e6.jpg",
+      "description": "In 2008, the Air Jordan 1 Retro High OG ‘Black White’ sneaker was part of the 'Countdown Pack' that celebrated the launch of the Air Jordan 23 sneaker. The 'Countdown Pack' included retros of all previous Air Jordan sneakers in limited-edition packaging. This 2014 Air Jordan 1 Retro High OG ‘Black / White’ sneaker features the original Nike Air branding on the tongue and a heel with no logo on the back, just like the original Air Jordan 1.",
+      "category": {
+        "name": "New",
+        "description": "sản phẩm mới",
+        "id": 2
+      },
+      "isShow": true,
+      "rating": {
+        "rate": 0,
+        "count": 0
+      },
+      "id": 13
     }
   ],
   "users": [
@@ -59,6 +110,12 @@
       "password": "$2a$10$nkjvMBwRc0NRh4rko13xH.waeZIwzaTRNwKQAaPrdHdH7pSR13xfK",
       "username": "bac1",
       "id": 4
+    },
+    {
+      "email": "nguyenxuanbac110@gmail.com",
+      "password": "$2a$10$aandxnrkKH7tMqnbr58lCesVsv.ax6shMuUmfC6AS8rPQRPHD3QDW",
+      "username": "nguyenxuanbac110@gmail.com",
+      "id": 5
     }
   ],
   "categories": [
@@ -66,6 +123,21 @@
       "name": "2HAND",
       "description": "sản phẩm cũ 90%",
       "id": 1
+    },
+    {
+      "name": "New",
+      "description": "sản phẩm mới",
+      "id": 2
+    },
+    {
+      "name": "sản phẩm 50%",
+      "description": "sản phẩm cũ",
+      "id": 3
+    },
+    {
+      "name": "Sản phẩm chính hãng",
+      "description": "Sản phẩm Chính Hãng Việt Nam",
+      "id": 4
     }
   ]
 }

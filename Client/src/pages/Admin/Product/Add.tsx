@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { TextField, Button, Box, Typography, MenuItem } from '@mui/material';
+import { Box, Typography, TextField, MenuItem, Button, Snackbar, IconButton } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { Category } from 'src/types/product';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function AdminAdd() {
   const [title, setTitle] = useState('');
@@ -16,6 +25,7 @@ function AdminAdd() {
   const [imageError, setImageError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,10 +98,20 @@ function AdminAdd() {
       };
 
       await axios.post('http://localhost:3000/products', newProduct);
-      navigate('/admin/product/list');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        navigate('/admin/product/list');
+      }, 2000); // Adjust the timeout duration if needed
     } catch (error) {
       console.error('Error adding product:', error);
     }
+  };
+
+  const handleSnackbarClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -99,6 +119,16 @@ function AdminAdd() {
       <Typography variant="h4" component="h1" gutterBottom>
         Add Product
       </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+        <Link to="/admin/product/addCategory">
+          <IconButton color="primary" aria-label="Add Category">
+            <AddCircleOutlineIcon />
+          </IconButton>
+        </Link>
+        <Typography variant="body1" sx={{ ml: 1 }}>
+          Add New Category
+        </Typography>
+      </Box>
       <TextField
         error={titleError}
         label="Title"
@@ -160,6 +190,13 @@ function AdminAdd() {
       >
         Add Product
       </Button>
+
+      {/* Snackbar for success message */}
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          Thêm sản phẩm thành công
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

@@ -1,0 +1,191 @@
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+.card {
+    position: relative;
+    width: 32rem;
+    height: 42rem;
+    overflow: hidden;
+    background-color: #fff; /* Change background to white */
+    border-radius: 2rem;
+    transition: .10s;
+}
+
+/* CSS for background color effect of the card */
+.card.background-blue::before,
+.card.background-orange::before,
+.card.background-red::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(15rem at 80% 20%);
+    transition: .5s ease-in-out;
+}
+
+.card.background-blue::before {
+    background: #67D6E1;
+}
+
+.card.background-orange::before {
+    background: #ED8918;
+}
+
+.card.background-red::before {
+    background: #B22424;
+}
+
+.card:hover::before {
+    clip-path: circle(30rem at 80% -20%);
+}
+
+.cardimg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 22rem;
+    transition: .5s;
+    background-color: #fff; /* Ensure background of image container is white */
+}
+
+.card:hover .cardimg {
+    top: 0;
+    transform: translateY(0);
+}
+
+.cardimg img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 27rem;
+}
+
+/* CSS for card content */
+.cardcontent {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10rem;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease, height 1s ease;
+    z-index: 10;
+}
+
+.card:hover .cardcontent {
+    opacity: 1;
+    visibility: visible;
+    height: 21rem; /* Size when hovered */
+}
+
+.cardcontent h2 {
+    font-weight: 600;
+    letter-spacing: .1rem;
+    color: #000; /* Change content text color to black */
+    margin: 0;
+    font-size: 2rem;
+}
+
+.cardresize {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .8rem 2rem;
+}
+
+.cardsize, .cardcolor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem 2rem;
+}
+
+.cardsize h3, .cardcolor h3 {
+    font-size: 1.4rem;
+    color: #000; /* Change content text color to black */
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    margin-right: 1rem;
+}
+
+/* Ensure size and color selection are always visible */
+.cardresize {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.color {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin: 0 .5rem;
+    cursor: pointer;
+}
+
+.talla {
+    width: 2.6rem;
+    height: 2.6rem;
+    text-align: center;
+    line-height: 2.6rem;
+    font-size: 1.4rem;
+    display: inline-block;
+    color: #111;
+    background: #FFF;
+    margin: 0 .5rem;
+    transition: .5s;
+    border-radius: .4rem;
+    cursor: pointer;
+}
+
+.talla.default:hover {
+    background: #B22424;
+}
+
+.talla.azul:hover {
+    background: #67D6E1;
+}
+
+.talla.naranja:hover {
+    background: #ED8918;
+}
+
+/* CSS for the add-to-cart button */
+.add-to-cart {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #000; /* Change button background to black */
+    border-radius: .4rem;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff; /* Change button text color to white */
+    opacity: 0;
+    transform: translateY(5rem);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.add-to-cart:hover {
+    background: #B22424;
+}
+
+.add-to-cart.azul:hover {
+    background: #67D6E1;
+}
+
+.add-to-cart.naranja:hover {
+    background: #ED8918;
+}
+
+.card:hover .add-to-cart {
+    opacity: 1;
+    transform: translateY(0);
+}

@@ -37,7 +37,7 @@ function ComfirmDialog({ confirm, onConfirm, onDeleteConfirmed }: ComfirmDialogP
     onConfirm(false);
     onDeleteConfirmed();
   };
-  
+
 
   return (
     <React.Fragment>
@@ -138,37 +138,37 @@ function AdminList() {
         >
           <Box sx={{ p: 2 }}>
             {/* Logo */}
-            <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 2 }}>
-              Logo
+            <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
+              Ag
             </Typography>
             {/* Navigation Items */}
             <List>
               <ListItem button>
-                <ListItemIcon><DashboardIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><DashboardIcon /></ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><BarChartIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><BarChartIcon /></ListItemIcon>
                 <ListItemText primary="Statistics" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><PaymentIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><PaymentIcon /></ListItemIcon>
                 <ListItemText primary="Payment" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><AccountBalanceWalletIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><AccountBalanceWalletIcon /></ListItemIcon>
                 <ListItemText primary="Transactions" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><ShoppingCartIcon /></ListItemIcon>
                 <ListItemText primary="Products" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><PeopleAltIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><PeopleAltIcon /></ListItemIcon>
                 <ListItemText primary="Customer" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><MessageIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><MessageIcon /></ListItemIcon>
                 <ListItemText primary="Message" />
               </ListItem>
             </List>
@@ -176,11 +176,11 @@ function AdminList() {
             <Box sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
               <List>
                 <ListItem button>
-                  <ListItemIcon><SettingsIcon /></ListItemIcon>
+                  <ListItemIcon sx={{ color: '#FFFFFF' }}><SettingsIcon /></ListItemIcon>
                   <ListItemText primary="Setting" />
                 </ListItem>
                 <ListItem button>
-                  <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                  <ListItemIcon sx={{ color: '#FFFFFF' }}><ExitToAppIcon /></ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItem>
               </List>
@@ -203,46 +203,46 @@ function AdminList() {
             </Box>
           </Box>
           <TableContainer>
-          <Table>
-  <TableHead>
-    <TableRow>
-      <TableCell>ID</TableCell>
-      <TableCell>Title</TableCell>
-      <TableCell>Image</TableCell>
-      <TableCell>Price</TableCell>
-      <TableCell>Category</TableCell>
-      <TableCell>Actions</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    {products.map((product, index) => (
-      <TableRow key={index}>
-        <TableCell>{product.id}</TableCell>
-        <TableCell>{product.title}</TableCell>
-        <TableCell>
-          <img src={product.image} alt={product.title} style={{ width: 100, height: 'auto' }} />
-        </TableCell>
-        <TableCell>{product.price}</TableCell>
-        <TableCell>{product.category.name}</TableCell>
-        <TableCell>
-          <Stack direction="row" spacing={2}>
-          <IconButton
-  component={Link}
-  to={`/admin/product/edit/${product.id}`}
-  color="primary"
-  aria-label="Edit Product"
->
-  <EditIcon />
-</IconButton>
-            <IconButton color="error" aria-label="Delete Product" onClick={() => handleDelete(product.id)}>
-              <DeleteIcon />
-            </IconButton>
-          </Stack>
-        </TableCell>
-      </TableRow>
-    ))}
-  </TableBody>
-</Table>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {products.map((product, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{product.id}</TableCell>
+                    <TableCell>{product.title}</TableCell>
+                    <TableCell>
+                      <img src={product.image} alt={product.title} style={{ width: 100, height: 'auto' }} />
+                    </TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>{product.category.name}</TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={2}>
+                        <IconButton
+                          component={Link}
+                          to={`/admin/product/edit/${product.id}`}
+                          color="primary"
+                          aria-label="Edit Product"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton color="error" aria-label="Delete Product" onClick={() => handleDelete(product.id)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
 
           </TableContainer>
         </Box>

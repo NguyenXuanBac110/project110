@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { TextField, Button, Box, Typography } from '@mui/material';
-import { Product } from 'src/types/product';
+import { TextField, Button, Box, Typography, MenuItem, Snackbar } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { Product, Category } from 'src/types/product';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function AdminEdit() {
   const { id } = useParams();
@@ -19,10 +27,13 @@ function AdminEdit() {
     isShow: false,
   });
 
+  const [categories, setCategories] = useState<Category[]>([]);
   const [titleError, setTitleError] = useState(false);
   const [priceError, setPriceError] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,7 +44,17 @@ function AdminEdit() {
         console.error('Error fetching product:', error);
       }
     };
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get<Category[]>('http://localhost:3000/categories');
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
     fetchProduct();
+    fetchCategories();
   }, [id]);
 
   const handleEditProduct = async () => {
@@ -59,27 +80,51 @@ function AdminEdit() {
       setImageError(false);
     }
 
-    if (!product.category.name.trim()) {
+    if (!product.category.id) {
       setCategoryError(true);
       return;
     } else {
       setCategoryError(false);
     }
 
+    if (product.description.length < 10) {
+      setDescriptionError(true);
+      return;
+    } else {
+      setDescriptionError(false);
+    }
+
     try {
       await axios.put(`http://localhost:3000/products/${id}`, product);
-      navigate('/admin/product/list');
+      setSnackbarOpen(true); // Open Snackbar on success
+      setTimeout(() => {
+        navigate('/admin/product/list');
+      }, 2000); // Navigate after 2 seconds
     } catch (error) {
       console.error('Error editing product:', error);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
+    if (name === 'category') {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        category: categories.find(category => category.id === Number(value)) || prevProduct.category,
+      }));
+    } else {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSnackbarClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -119,15 +164,34 @@ function AdminEdit() {
         helperText={imageError ? 'Image URL cannot be empty.' : ''}
       />
       <TextField
+        error={descriptionError}
+        name="description"
+        label="Description"
+        value={product.description}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        multiline
+        rows={4}
+        helperText={descriptionError ? 'Description must be at least 10 characters.' : ''}
+      />
+      <TextField
+        select
         error={categoryError}
-        name="category.name"
+        name="category"
         label="Category"
-        value={product.category.name}
+        value={product.category.id}
         onChange={handleChange}
         fullWidth
         margin="normal"
         helperText={categoryError ? 'Category cannot be empty.' : ''}
-      />
+      >
+        {categories.map((category) => (
+          <MenuItem key={category.id} value={category.id}>
+            {category.name}
+          </MenuItem>
+        ))}
+      </TextField>
       <Button
         variant="contained"
         color="primary"
@@ -136,6 +200,13 @@ function AdminEdit() {
       >
         Edit Product
       </Button>
+
+      {/* Snackbar for success message */}
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          Cập nhật sản phẩm thành công
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

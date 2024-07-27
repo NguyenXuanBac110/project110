@@ -1,134 +1,158 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, InputBase, Container, Box, IconButton } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton, Container, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { styled, alpha } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+import '../style/style.css'; // Import the CSS file
+import image1 from '../images/1.png'; // Adjust the path as needed
+import image2 from '../images/2.png';
+import image3 from '../images/3.png';
+import bar from '../images/bar.png';
+import image6 from '../images/6.png';
+import logo from '../images/logo.png';
 
 const Header = () => {
+  const toggleMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    const menu = document.getElementById("navDropdownMenu");
+    if (menu) {
+      if (menu.className === "nav_dropdown_menu") {
+        menu.className += " responsive";
+      } else {
+        menu.className = "nav_dropdown_menu";
+      }
+    }
+  };
+
   return (
     <div>
-      <AppBar position="static" style={{ backgroundColor: 'white', color: 'black' }}>
-        <Toolbar>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Tìm kiếm…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center', color: 'black' }}>
-            {/* Giữ trống để căn giữa các thành phần */}
-          </Typography>
-          <Box>
-            <IconButton component={Link} to="/login" color="inherit" style={{ color: 'black' }}>
-              <PersonIcon />
-            </IconButton>
-            <IconButton color="inherit" style={{ color: 'black' }}>
-              <ShoppingCartIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <AppBar position="static" style={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'black' }}>
-            <img src="https://censor.vn/wp-content/uploads/2022/03/logo-cac-hang-giay-noi-tieng-1.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
-          </Typography>
-          <Box>
-            <Button color="inherit" style={{ color: 'black' }}>Home</Button>
-            <Button color="inherit" style={{ color: 'black' }}>Bags</Button>
-            <Button color="inherit" style={{ color: 'black' }}>Sneakers</Button>
-            <Button color="inherit" style={{ color: 'black' }}>Belt</Button>
-            <Button color="inherit" style={{ color: 'black' }}>Contact</Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
+      <div className="body_items">
+        <div className="item_1">
+        <img src={image6} alt="" />
+        </div>
+        <div className="item_2">
+        
+        </div>
+        <div className="just_do_it">
+          <p>Just<br />Do<br />It</p>
+        </div>
+      </div>
 
-      <Container maxWidth={false} style={{ padding: 0, position: 'relative' }}>
-        <Box
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '700px', // chiều cao của banner, có thể điều chỉnh
-            backgroundImage: 'url(https://file.hstatic.net/200000174405/collection/19238246_1997064527179566_5473797071884482645_o_ff15685be80c4d21973dcb914398e04f.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
-        >
-          <Box display="flex" justifyContent="center" alignItems="center" style={{ height: '100%' }}>
-            <Box textAlign="center">
-              <Typography variant="h1" component="h1" style={{ color: 'white' }}>
-                Collections
-              </Typography>
-              <Typography variant="body1" component="p" style={{ margin: '20px 0', color: 'white' }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac.
-              </Typography>
-              <Button variant="contained" color="primary">
-                Shop Now
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      </Container>
+      <div className="container">
+        <nav>
+          <div className="left_nav">
+            <div className="nav_logo">
+            <img src={logo} alt="" />
+            </div>
+            <div className="nav_menu">
+              <ul>
+                <li>
+                  <a href="#" className="link">HOME</a>
+                  <div className="link_border"></div>
+                </li>
+                <li>
+                  <a href="#" className="link">KIDS</a>
+                  <div className="link_border"></div>
+                </li>
+                <li>
+                  <a href="#" className="link">MEN</a>
+                  <div className="link_border"></div>
+                </li>
+                <li>
+                  <a href="#" className="link">WOMEN</a>
+                  <div className="link_border"></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="right_nav">
+            <div className="nav_cart_box">
+              <i className="bx bx-cart"></i>
+            </div>
+            <div className="dropdown">
+              <div className="menu_bars" onClick={toggleMenu}>
+                <div className="menu_bars_btn">
+                  <img src={bar} className="bar_1" alt="" />
+                  <img src={bar} className="bar_2" alt="" />
+                </div>
+                <div className="nav_dropdown_menu" id="navDropdownMenu">
+                  <ul>
+                    <li>
+                      <a href="#" className="link">HOME</a>
+                      <div className="link_border"></div>
+                    </li>
+                    <li>
+                      <a href="#" className="link">KIDS</a>
+                      <div className="link_border"></div>
+                    </li>
+                    <li>
+                      <a href="#" className="link">MEN</a>
+                      <div className="link_border"></div>
+                    </li>
+                    <li>
+                      <a href="#" className="link">WOMEN</a>
+                      <div className="link_border"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
 
-      <Box sx={{ padding: "20px 0" }}>
-        <Typography variant="h1" textAlign="center" marginBottom={4}>
-          BEST SELLER
-        </Typography>
-        <Box sx={{ textAlign: "center", marginBottom: 4 }}>
-          <Button variant="text">All</Button>
-          <Button variant="text">Bags</Button>
-          <Button variant="text">Sneakers</Button>
-          <Button variant="text">Belt</Button>
-          <Button variant="text">Sunglasses</Button>
-        </Box>
-      </Box>
+        <div className="main">
+          <div className="left_col">
+            <div className="shoe_title">
+              <p>Nike Air Jordan</p>
+            </div>
+            <div className="line">
+              <hr />
+            </div>
+            <div className="shoe_description">
+              <p>Nike Shoes E-commerce Web Template Shop - UpLabs, Nike introduces new consumer website - oregonlive.com</p>
+            </div>
+            <div className="cart">
+              <button className="cart_btn">Add To Cart</button>
+              <p className="price">$197.99</p>
+            </div>
+
+            <div className="shop_box">
+              <div className="shop_item_container">
+                <div className="shoe_img_box">
+                  <img src={image2} className="shoe_img" alt="" />
+                </div>
+                <div className="shoe_name_price">
+                  <h3>Nike Air Max</h3>
+                  <p>$169.99</p>
+                </div>
+                <div className="add_to_shop">
+                  <i className="bx bx-cart"></i>
+                </div>
+              </div>
+              <div className="shop_item_container">
+                <div className="shoe_img_box">
+                  <img src={image3} className="shoe_img" alt="" />
+                </div>
+                <div className="shoe_name_price">
+                  <h3>Nike Air Force</h3>
+                  <p>$172.99</p>
+                </div>
+                <div className="add_to_shop">
+                  <i className="bx bx-cart"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="right_col">
+            <img src={image1} className="featured_img" alt="" />
+            <div className="shopping_cart_btn">
+              <i className="bx bx-cart"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default Header;

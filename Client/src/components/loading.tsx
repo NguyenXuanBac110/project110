@@ -1,15 +1,15 @@
-import { FC } from "react";
-import { Box, LinearProgress } from "@mui/material";
+import React from 'react';
+import { Box, LinearProgress } from '@mui/material';
+import { useLoading } from './LoadingContext';
 
-type LoadingProps = {
-  isShow: boolean;
-};
 
-const Loading: FC<LoadingProps> = ({ isShow }) => {
+const Loading = () => {
+  const { loading } = useLoading();
+
   return (
     <>
-      {isShow && (
-        <Box sx={{ width: "100%" }}>
+      {loading && (
+        <Box sx={{ width: '100%' }}>
           <LinearProgress />
         </Box>
       )}

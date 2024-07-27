@@ -13,7 +13,7 @@ const ClientLayout = () => {
       {isHomePage && <Header />}
       <Stack>
         <Outlet />
-        {/* <Footer /> */}
+        <Footer />
       </Stack>
     </>
   );

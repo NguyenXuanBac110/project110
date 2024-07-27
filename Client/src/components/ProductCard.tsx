@@ -1,98 +1,109 @@
-import { FC } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  IconButton,
-  Rating,
-  Typography,
-} from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link } from "react-router-dom";
-import { Product } from "src/types/product";
+// src/components/ProductCard.tsx
 
-type ProductCardProps = {
-  product: Product;
-};
+import React, { useState } from 'react';
+import { Typography } from '@mui/material';
+import { Product } from 'src/types/product';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from './CartContext'; // Ensure this import path is correct
 
-const ProductCard: FC<ProductCardProps> = ({ product }) => {
+import '../style/Cart.css';
+import imgblue from '../images/297993a39719a8c259dc34f0d9f5e280.png';
+import imgRed from '../images/1.png';
+
+const ProductCard = ({ product }: { product: Product }) => {
+  const [color, setColor] = useState<'red' | 'blue' | 'orange'>('red');
+  const [image, setImage] = useState(product.image);
+  const [buttonClass, setButtonClass] = useState('default');
+  const [tallaClass, setTallaClass] = useState('default');
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
+  const colorMap: Record<'red' | 'blue' | 'orange', string> = {
+    red: '#B22424',
+    blue: '#67D6E1',
+    orange: '#ED8918'
+  };
+
+  const imageMap: Record<'red' | 'blue' | 'orange', string> = {
+    red: imgRed,
+    blue: imgblue,
+    orange: '' // add appropriate image for orange if available
+  };
+
+  const handleColorChange = (newColor: 'red' | 'blue' | 'orange') => {
+    setColor(newColor);
+    setImage(imageMap[newColor]);
+
+    switch (newColor) {
+      case 'blue':
+        setButtonClass('azul');
+        setTallaClass('azul');
+        break;
+      case 'orange':
+        setButtonClass('naranja');
+        setTallaClass('naranja');
+        break;
+      case 'red':
+        setButtonClass('default');
+        setTallaClass('default');
+        break;
+    }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, 1);
+    navigate('/cart');
+  };
+
   return (
-    
-    <Card
-    sx={{
-      width: "100%",
-      maxWidth: 345,
-      marginTop: "20px",
-      position: "relative",
-      "&:hover": {
-        "& .hover-overlay": {
-          display: "flex",
-        },
-      },
-    }}
-  >
-    <Box
-      className="hover-overlay"
-      sx={{
-        display: "none",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        zIndex: 2,
-      }}
-    >
-      <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
-      </IconButton>
-      <IconButton aria-label="add to cart" component={Link} to={`/products/${product.id}`}>
-        <ShoppingCartIcon />
-      </IconButton>
-    </Box>
-    <CardMedia
-      component="img"
-      alt={product.title}
-      height="140"
-      image={product.image}
-      sx={{ objectFit: "contain" }}
-    />
-    <CardContent
-      sx={{
-        transition: "background-color 0.3s ease-in-out",
-      }}
-    >
-      <Typography gutterBottom variant="h6" component="div">
-        {product.title}
-      </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", marginBottom: 1 }}>
-        <Rating value={4} readOnly precision={0.5} />
-        <Rating value={0} readOnly precision={0.5} emptyIcon={<span />} />
-      </Box>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Typography variant="h6" color="primary">
-          ${product.price}
-        </Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{ textDecoration: "line-through", marginLeft: 1 }}
-        >
-          ${product.price}
-        </Typography>
-        <Typography variant="body2" color="red" sx={{ marginLeft: 1 }}>
-          24% Off
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
+    <div className="container">
+      <div className={`card background-${color}`}>
+        <div className="cardimg">
+          <img src={image} alt="Product Image" />
+        </div>
+
+        <div className="cardcontent">
+          <Typography variant="h2" className="card-title">
+            {product.title}
+          </Typography>
+
+          <div className="cardresize">
+            <div className="cardsize">
+              <Typography variant="h3" className="card-subtitle">
+                Size:
+              </Typography>
+              {['37', '38', '39', '40'].map(size => (
+                <span key={size} className={`talla ${tallaClass}`}>
+                  {size}
+                </span>
+              ))}
+            </div>
+
+            <div className="cardcolor">
+              <Typography variant="h3" className="card-subtitle">
+                Color:
+              </Typography>
+              {['red', 'blue', 'orange'].map((colorValue) => (
+                <span
+                  key={colorValue}
+                  style={{
+                    backgroundColor: colorMap[colorValue as 'red' | 'blue' | 'orange'],
+                    border: `2px solid ${color === colorValue ? '#000' : 'transparent'}`
+                  }}
+                  className="color"
+                  onClick={() => handleColorChange(colorValue as 'red' | 'blue' | 'orange')}
+                />
+              ))}
+            </div>
+
+            <button type="button" className={`add-to-cart ${buttonClass}`} onClick={handleAddToCart}>
+              ADD TO CART
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

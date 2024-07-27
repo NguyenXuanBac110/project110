@@ -28,37 +28,37 @@ export default function TemporaryDrawer() {
         >
           <Box sx={{ p: 2 }}>
             {/* Logo */}
-            <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 2 }}>
-              Logo
+            <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
+              Ag
             </Typography>
             {/* Navigation Items */}
             <List>
               <ListItem button>
-                <ListItemIcon><DashboardIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><DashboardIcon /></ListItemIcon>
                 <ListItemText primary="Dashboard" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><BarChartIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><BarChartIcon /></ListItemIcon>
                 <ListItemText primary="Statistics" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><PaymentIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><PaymentIcon /></ListItemIcon>
                 <ListItemText primary="Payment" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><AccountBalanceWalletIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><AccountBalanceWalletIcon /></ListItemIcon>
                 <ListItemText primary="Transactions" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><ShoppingCartIcon /></ListItemIcon>
                 <ListItemText primary="Products" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><PeopleAltIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><PeopleAltIcon /></ListItemIcon>
                 <ListItemText primary="Customer" />
               </ListItem>
               <ListItem button>
-                <ListItemIcon><MessageIcon /></ListItemIcon>
+                <ListItemIcon sx={{ color: '#FFFFFF' }}><MessageIcon /></ListItemIcon>
                 <ListItemText primary="Message" />
               </ListItem>
             </List>
@@ -66,11 +66,11 @@ export default function TemporaryDrawer() {
             <Box sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
               <List>
                 <ListItem button>
-                  <ListItemIcon><SettingsIcon /></ListItemIcon>
+                  <ListItemIcon sx={{ color: '#FFFFFF' }}><SettingsIcon /></ListItemIcon>
                   <ListItemText primary="Setting" />
                 </ListItem>
                 <ListItem button>
-                  <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                  <ListItemIcon sx={{ color: '#FFFFFF' }}><ExitToAppIcon /></ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItem>
               </List>
