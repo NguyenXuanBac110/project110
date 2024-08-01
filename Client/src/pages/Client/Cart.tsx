@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography, IconButton, CardMedia } from '@mui/material';
+import { Box, Button, Typography, IconButton, CardMedia, AppBar, Toolbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,16 +24,31 @@ const Cart = () => {
   const total = subtotal + shipping;
 
   return (
-    <Box>
-      <Box display="flex" justifyContent="center" gap={6} mt={4}>
+    <Box sx={{backgroundColor: 'white'}}>
+      <AppBar position="static" sx={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1, color: 'black' }}>
+            <img src="https://censor.vn/wp-content/uploads/2022/03/logo-cac-hang-giay-noi-tieng-1.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
+          </Typography>
+          <Box>
+            <Button color="inherit" sx={{ color: 'black' }}>Home</Button>
+            <Button color="inherit" sx={{ color: 'black' }}>Bags</Button>
+            <Button color="inherit" sx={{ color: 'black' }}>Sneakers</Button>
+            <Button color="inherit" sx={{ color: 'black' }}>Belt</Button>
+            <Button color="inherit" sx={{ color: 'black' }}>Contact</Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Box display="flex" justifyContent="center" gap={6} mt={4} mb={5}>
         <Box sx={{ overflowX: 'auto' }}>
-          <Box sx={{ width: '1072px', border: 'none' }}>
+          <Box sx={{ border: 'none' }}> {/* Increased width */}
             <Box component="thead">
-              <Box display="flex" justifyContent="space-between" bgcolor="#E2F4FF" py={2} px={3} fontSize="20px" color="#232323">
-                <Typography variant="h6" flex="1">Product</Typography>
-                <Typography variant="h6" flex="1">Price</Typography>
+              <Box display="flex" justifyContent="space-between" bgcolor="#E2F4FF" py={2} px={3} fontSize="20px" color="#232323" width='1000px'>
+                <Typography variant="h6" flex="1" textAlign='center'>Product</Typography>
+                <Typography variant="h6" flex="1" textAlign='center'>Price</Typography>
                 <Typography variant="h6" flex="1" textAlign="center">Quantity</Typography>
                 <Typography variant="h6" flex="1" textAlign="center">Subtotal</Typography>
+                <Typography variant="h6" flex="1" textAlign="center">Function</Typography>
               </Box>
             </Box>
             <Box component="tbody" borderBottom="2px solid">
@@ -53,26 +68,26 @@ const Cart = () => {
                     </Box>
                   </Box>
                   <Box flex="1" textAlign="center">
-                    <Typography variant="h6">${item.price.toFixed(2)}</Typography>
+                    <Typography variant="h6">${item.price.toFixed()}</Typography>
                   </Box>
                   <Box flex="1" display="flex" justifyContent="center" alignItems="center">
-                    <IconButton 
-                      aria-label="decrease quantity" 
-                      onClick={() => handleQuantityChange(item.id, -1)} 
+                    <IconButton
+                      aria-label="decrease quantity"
+                      onClick={() => handleQuantityChange(item.id, -1)}
                       disabled={item.quantity <= 1}
                     >
                       <RemoveIcon />
                     </IconButton>
                     <Typography variant="body1">{item.quantity}</Typography>
-                    <IconButton 
-                      aria-label="increase quantity" 
+                    <IconButton
+                      aria-label="increase quantity"
                       onClick={() => handleQuantityChange(item.id, 1)}
                     >
                       <AddIcon />
                     </IconButton>
                   </Box>
                   <Box flex="1" display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography variant="h6">${(item.price * item.quantity).toFixed(2)}</Typography>
+                    <Typography variant="h6">${(item.price * item.quantity).toFixed()}</Typography>
                     <IconButton aria-label="remove item" onClick={() => removeFromCart(item.id)}>
                       <CloseIcon />
                     </IconButton>
@@ -81,6 +96,7 @@ const Cart = () => {
               ))}
             </Box>
           </Box>
+
 
           <Box display="flex" justifyContent="center" gap={4} mt={2}>
             <Button variant="contained" color="warning" sx={{ width: '315px', height: '63px' }}>
@@ -95,32 +111,33 @@ const Cart = () => {
           </Box>
         </Box>
 
-        <Box sx={{ width: '450px', height: '499px', border: '1px solid #c9c9c9', padding: '16px' }}>
-          <Box bgcolor="#E2F4FF" textAlign="center" py={1} fontSize="20px" fontWeight="bold">
-            Cart Total
+        <Box sx={{ width: '450px' }}>
+          <Box bgcolor="#E2F4FF" textAlign="center" py={2} px={3}  fontWeight="bold" >
+          <Typography variant="h6" flex="1" textAlign='center'>Cart Total</Typography>
+            
           </Box>
           <Box display="flex" justifyContent="space-between" py={2} fontSize="19px">
             <Typography>Subtotal</Typography>
-            <Typography>${subtotal.toFixed(2)}</Typography>
+            <Typography>${subtotal.toFixed()}</Typography>
           </Box>
           <Box component="hr" sx={{ borderColor: '#c9c9c9' }} />
-          <Box display="flex" justifyContent="space-between" alignItems="center" border="1px solid #c9c9c9" borderRadius="8px" p={1}>
+          <Box display="flex" justifyContent="space-between" alignItems="center"  borderRadius="8px" p={1}>
             <Typography fontSize="16px">Enter coupon code</Typography>
             <Button variant="outlined" color="primary">Apply</Button>
           </Box>
           <Box component="hr" sx={{ borderColor: '#c9c9c9' }} />
-          <Box display="flex" justifyContent="space-between" alignItems="center" border="1px solid #c9c9c9" borderRadius="8px" p={1}>
+          <Box display="flex" justifyContent="space-between" alignItems="center"  borderRadius="8px" p={1}>
             <Typography fontSize="16px">Country</Typography>
             <Button variant="outlined" color="primary" endIcon={<img src="/assets/images/arrow-down.png" alt="Dropdown" />}>
               Select
             </Button>
           </Box>
           <Box component="hr" sx={{ borderColor: '#c9c9c9' }} />
-          <Box display="flex" justifyContent="space-between" py={2} fontSize="16px">
-            <Typography>Total</Typography>
-            <Typography>${total.toFixed(2)}</Typography>
+          <Box display="flex" justifyContent="space-between" py={2} fontSize="16px" p={1}>
+            <Typography > Total</Typography>
+            <Typography>${total.toFixed()}</Typography>
           </Box>
-          <Button variant="contained" color="warning" sx={{ width: '340px', height: '52px' }} onClick={() => navigate('/bill')}>
+          <Button variant="contained" color="warning" sx={{ width: '340px', height: '52px' , mt: 3}} onClick={() => navigate('/bill')}>
             Proceed to Checkout
           </Button>
         </Box>

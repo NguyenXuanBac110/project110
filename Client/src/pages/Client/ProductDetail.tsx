@@ -86,8 +86,9 @@ function ProductDetail() {
   };
 
   return (
-    <>
-      <Loading />
+    < >
+     <Box sx={{backgroundColor: 'white'}}>
+     <Loading />
       <AppBar position="static" sx={{ backgroundColor: 'white', color: 'black', boxShadow: 'none' }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1, color: 'black' }}>
@@ -193,6 +194,7 @@ function ProductDetail() {
           !loading && !error && <Typography>No product found</Typography>
         )}
       </Container>
+     </Box>
     </>
   );
 }

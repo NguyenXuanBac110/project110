@@ -9,13 +9,13 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Stack } from "@mui/material";
+import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Stack, TextField, MenuItem, Pagination } from "@mui/material";
 import { Dashboard as DashboardIcon, BarChart as BarChartIcon, Payment as PaymentIcon, AccountBalanceWallet as AccountBalanceWalletIcon, ShoppingCart as ShoppingCartIcon, PeopleAlt as PeopleAltIcon, Message as MessageIcon, Settings as SettingsIcon, ExitToApp as ExitToAppIcon, Delete as DeleteIcon, Edit as EditIcon, AddCircleOutline as AddCircleOutlineIcon } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
 import { Product } from "src/types/product";
 
-type ComfirmDialogProps = {
+type ConfirmDialogProps = {
   confirm: boolean;
   onConfirm: (confirm: boolean) => void;
   onDeleteConfirmed: () => void;
@@ -28,7 +28,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ComfirmDialog({ confirm, onConfirm, onDeleteConfirmed }: ComfirmDialogProps) {
+function ConfirmDialog({ confirm, onConfirm, onDeleteConfirmed }: ConfirmDialogProps) {
   const handleClose = () => {
     onConfirm(false);
   };
@@ -37,7 +37,6 @@ function ComfirmDialog({ confirm, onConfirm, onDeleteConfirmed }: ComfirmDialogP
     onConfirm(false);
     onDeleteConfirmed();
   };
-
 
   return (
     <React.Fragment>
@@ -69,8 +68,12 @@ function ComfirmDialog({ confirm, onConfirm, onDeleteConfirmed }: ComfirmDialogP
 function AdminList() {
   const [confirm, setConfirm] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterCategory, setFilterCategory] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const getAllProduct = async () => {
     try {
@@ -85,19 +88,16 @@ function AdminList() {
     getAllProduct();
   }, []);
 
-  const handleDelete = (productId: number) => {
+  const handleDelete = (productId: string) => {
     setSelectedProductId(productId);
     setConfirm(true);
   };
 
   const handleDeleteConfirmed = async () => {
     try {
-      // Perform deletion logic using selectedProductId
-      if (selectedProductId) {
+      if (selectedProductId !== null) {
         await axios.delete(`http://localhost:3000/products/${selectedProductId}`);
-        // After deletion, update the product list
         setProducts((prevProducts) => prevProducts.filter(product => product.id !== selectedProductId));
-        // Open snackbar
         setSnackbarOpen(true);
       }
     } catch (error) {
@@ -119,11 +119,30 @@ function AdminList() {
     setSnackbarOpen(false);
   };
 
+  const filteredProducts = products.filter(product => {
+    return (
+      product.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (filterCategory ? product.category.name === filterCategory : true)
+    );
+  });
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterCategory(event.target.value);
+  };
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
+  const paginatedProducts = filteredProducts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <>
       <Box sx={{ display: 'flex', width: 1440, height: 956 }}>
-        {/* Navigation Sidebar */}
         <Drawer
           variant="permanent"
           sx={{
@@ -137,11 +156,9 @@ function AdminList() {
           }}
         >
           <Box sx={{ p: 2 }}>
-            {/* Logo */}
             <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
               Ag
             </Typography>
-            {/* Navigation Items */}
             <List>
               <ListItem button>
                 <ListItemIcon sx={{ color: '#FFFFFF' }}><DashboardIcon /></ListItemIcon>
@@ -172,7 +189,6 @@ function AdminList() {
                 <ListItemText primary="Message" />
               </ListItem>
             </List>
-            {/* Bottom Items */}
             <Box sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
               <List>
                 <ListItem button>
@@ -188,7 +204,6 @@ function AdminList() {
           </Box>
         </Drawer>
 
-        {/* Main Content */}
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
             <Typography variant="h4" component="h1">
@@ -201,6 +216,29 @@ function AdminList() {
                 </IconButton>
               </Link>
             </Box>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+            <TextField
+              label="Search Products"
+              variant="outlined"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <TextField
+              select
+              label="Filter by Category"
+              value={filterCategory}
+              onChange={handleFilterChange}
+              variant="outlined"
+            >
+              <MenuItem value="">
+                <em>All</em>
+              </MenuItem>
+              {/* Add your categories here */}
+              <MenuItem value="New">New</MenuItem>
+              <MenuItem value="2HAND">2HAND</MenuItem>
+              <MenuItem value="Sản phẩm chính hãng">Sản phẩm chính hãng</MenuItem>
+            </TextField>
           </Box>
           <TableContainer>
             <Table>
@@ -215,8 +253,8 @@ function AdminList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {products.map((product, index) => (
-                  <TableRow key={index}>
+                {paginatedProducts.map((product) => (
+                  <TableRow key={product.id}>
                     <TableCell>{product.id}</TableCell>
                     <TableCell>{product.title}</TableCell>
                     <TableCell>
@@ -243,19 +281,23 @@ function AdminList() {
                 ))}
               </TableBody>
             </Table>
-
           </TableContainer>
+          <Pagination
+            count={Math.ceil(filteredProducts.length / itemsPerPage)}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}
+          />
         </Box>
       </Box>
 
-      {/* Confirmation Dialog */}
-      <ComfirmDialog
+      <ConfirmDialog
         confirm={confirm}
         onConfirm={handleConfirmDialogClose}
         onDeleteConfirmed={handleDeleteConfirmed}
       />
 
-      {/* Snackbar for success message */}
       <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
         <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
           Product deleted successfully!

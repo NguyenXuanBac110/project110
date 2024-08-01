@@ -19,6 +19,7 @@ import DynamicFieldArray from './pages/Admin/Product/fields';
 import Cart from './pages/Client/Cart';
 import { CartProvider } from './components/CartContext';
 import Bill from './pages/Client/Bill';
+import ShowOrder from './pages/Client/ShowOrder';
 
 
 const routeConfig = [
@@ -44,6 +45,7 @@ const routeConfig = [
       { path: 'login', element: <Login /> },
       { path: 'cart', element: <Cart /> },
       { path: 'bill', element: <Bill /> },
+      { path: 'showOrder', element: <ShowOrder /> },
     ],
   },
 ];
